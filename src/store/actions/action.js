@@ -3,7 +3,6 @@ export const asyncFetchRepos = (val)=>{
 }
 
 export const getRepos = (val)=>{
-	debugger;
 	let url= '';
 	console.log('environment', process.env.NODE_ENV)
 	if(process.env.NODE_ENV === "production"){
@@ -18,6 +17,7 @@ export const getRepos = (val)=>{
 				method: 'GET',
 				headers: {
 					'content-type': 'application/json',
+					'Authorization': 'token ad5785ac441f224d21f9e10f1b3b47922e044b95',
 				  }
 			})
 			.then(response => {
