@@ -16,8 +16,7 @@ export const getRepos = (val)=>{
 			fetch(`https://cors-anywhere.herokuapp.com/${url}`,{
 				method: 'GET',
 				headers: {
-					'content-type': 'application/json',
-					'Authorization': 'token ad5785ac441f224d21f9e10f1b3b47922e044b95',
+					'content-type': 'application/json'
 				  }
 			})
 			.then(response => {
