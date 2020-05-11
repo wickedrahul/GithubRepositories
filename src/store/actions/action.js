@@ -2,14 +2,6 @@ export const asyncFetchRepos = (val)=>{
 	return { type: "FETCH_REPOS", value: val }
 }
 
-export const filtrRepostories = (val)=>{
-	return { type: "FILTER_REPOS", value: val }
-}
-
-export const sortStarGazersOfRepo = (val)=>{
-	return { type: "SORT_STAR_GAZERS", value: val}
-}
-
 export const getRepos = (val)=>{
 	debugger;
 	let url= '';
@@ -26,7 +18,6 @@ export const getRepos = (val)=>{
 				method: 'GET',
 				headers: {
 					'content-type': 'application/json',
-					'Authorization': 'token 2d971e912eb663368f2bdf81e676119569531d81',
 				  }
 			})
 			.then(response => {
@@ -54,17 +45,5 @@ export const getRepos = (val)=>{
 				})
 			})
 		})(url);
-	}
-}
-
-export const filterRepos = (val) =>{
-	return dispatch =>{
-		dispatch(filtrRepostories(val));
-	}
-}
-
-export const sortStarGazers = (val) =>{
-	return dispatch =>{
-		dispatch(sortStarGazersOfRepo(val));
 	}
 }
