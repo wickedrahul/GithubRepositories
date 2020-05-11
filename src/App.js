@@ -6,8 +6,6 @@ import * as actionCreators from "./store/actions/action";
 
 import Repo from "./components/repo";
 
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -18,15 +16,11 @@ class App extends Component {
   }
 
   handleSearch(event){
-    //handle search
     const searchTerm = event.target.value;
     this.setState({
       searchString: searchTerm
     });
     this.props.filterRepos(searchTerm);
-    // this.props.fetchedRepos.filter(i=>{
-    //   return i.id.toString().includes(searchTerm) || i.name.includes(searchTerm);
-    // })
   }
 
   sortStarGazers(){
@@ -37,34 +31,16 @@ class App extends Component {
     if(this.props.filtered_repos && this.props.filtered_repos.length>0){
       fetchedReposResults= this.props.filtered_repos
     }
-    const divStyle1 ={
-      'display': 'inline-block',
-      'border': '1px solid black',
-      'width': '48%',
-      'verticalAlign': 'top',
-      'padding': '0 0 36px',
-      'textAlign': 'center'
-    }
-
-    const divStyle2 ={
-      'display': 'inline-block',
-      'border': '1px solid black',
-      'width': '48%',
-      'verticalAlign': 'top',
-      'padding': '0 0 36px',
-      'textAlign': 'center',
-      'cursor': 'pointer'
-    }
 
     return (
       <div className="App">
         <div>
           <input type="text" className="inputSearch" onChange={this.handleSearch.bind(this)}
-          placeholder="search by title, author"/>
+          placeholder="search by Repository Id, name"/>
        </div>
        <div>
-          <div style= {divStyle1} >Repositories</div>
-          <div style= {divStyle2} onClick = {this.props.sortStarGazers.bind(this)}>Stars ({this.props.sorting_state})</div>
+          <div className= "divStyle1" >Repositories</div>
+          <div className= "divStyle1 divStyle2" onClick = {this.props.sortStarGazers.bind(this)}>Stars ({this.props.sorting_state})</div>
          
        </div>
       {
@@ -72,7 +48,6 @@ class App extends Component {
           return <Repo key={f.id} data={f}/>
         })
       }
-        
       </div>
     );
   }

@@ -1,9 +1,5 @@
-import axios from "axios";
-var parseString = require('xml2js').parseString;
-var xml;
-
-export const onSearchAsync = (val)=>{
-	return { type: "FIRE_SEARCH", value: val }
+export const asyncFetchRepos = (val)=>{
+	return { type: "FETCH_REPOS", value: val }
 }
 
 export const filtrRepostories = (val)=>{
@@ -13,7 +9,6 @@ export const filtrRepostories = (val)=>{
 export const sortStarGazersOfRepo = (val)=>{
 	return { type: "SORT_STAR_GAZERS", value: val}
 }
-
 
 export const getRepos = (val)=>{
 	debugger;
@@ -25,41 +20,40 @@ export const getRepos = (val)=>{
 		url= `${process.env.REACT_APP_AC_ORIGIN_GITHUB}/users/mojombo/repos`;
 	}
 	return dispatch =>{
-		var ctr = 1;
 		var myRepo = [];
 		(function myFunc(url){
-			fetch(url,{
+			fetch(`https://cors-anywhere.herokuapp.com/${url}`,{
 				method: 'GET',
 				headers: {
 					'content-type': 'application/json',
-					'Authorization': 'token 1ea1c175a6b1f5a2d11222bdba476cf2ab8cb413',
+					'Authorization': 'token 2d971e912eb663368f2bdf81e676119569531d81',
 				  }
 			})
 			.then(response => {
 				response.json().then(data=>{
 					console.log(response.headers.get('Link'));
 					myRepo.push(...data);
-					var nextURL = '';
-					response.headers.get('Link').split(',').map(i=> {
-						if(i.includes('next')){
-							nextURL = i.split(';')[0].replace("<","").replace(">","");
-						}
+					let nextURL = '';
+					const link = response.headers.get('Link').split(',');
 
-					})
+					for(let i of link){
+						if(i.includes('next')){
+							nextURL = i.split(';')[0].replace(/[<>]/g,'');;
+							break;
+						}
+					}
 					// var nextURL = response.headers.get('Link').split(',')[0].split(';')[0].replace('<', "").replace('>',"");
-					ctr =  ctr+1;
 					if(nextURL && nextURL.length>0){
-						myFunc("https://cors-anywhere.herokuapp.com/"+nextURL.trim());
+						myFunc(nextURL.trim());
 					}else{
 						console.log(myRepo);
-						dispatch(onSearchAsync(myRepo)); 
-						// else dispatch()
+						dispatch(asyncFetchRepos(myRepo)); 
+						return
 					}
 					
 				})
 			})
-		})("https://cors-anywhere.herokuapp.com/"+url);
-		
+		})(url);
 	}
 }
 

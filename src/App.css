@@ -37,33 +37,15 @@
   padding: 20px;
   font-size: 20px;
 }
-
-.btnSearch{
-  padding: 20px;
-  background: blue;
-  color: white;
-  font-size:20px;
-  cursor: pointer;
-}
-
-button {
-  margin-left: 10px;
-  
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom:10px;
-}
-
-.imageContainer{
+.divStyle1{
   display: inline-block;
-  margin: 20px;
+  border: 1px solid black;
+  width: 48%;
+  vertical-align: top;
+  padding: 0 0 36px;
+  text-align : center;
 }
 
-.containerDivs{
-  display: inline-block;
-}
-
-.imageContainer:hover{
-  cursor: pointer;
+.divStyle2{
+  cursor: pointer
 }

@@ -9,7 +9,7 @@ const reducer = (state=initialState, action) => {
 
     switch(action.type){
 
-        case 'FIRE_SEARCH':
+        case 'FETCH_REPOS':
             newState.fetchedRepos = action.value;
             newState.filtered_repos = [...newState.fetchedRepos]
             break;
@@ -17,12 +17,11 @@ const reducer = (state=initialState, action) => {
             if(action.value === ""){
                 newState.filtered_repos = [...newState.fetchedRepos];
             }
-            newState.filtered_repos = newState.fetchedRepos.filter(i=>{
+            newState.filtered_repos = newState.filtered_repos.filter(i=>{
               return i.id.toString().includes(action.value) || i.name.includes(action.value);
             });
             break;
         case 'SORT_STAR_GAZERS':
-            var sortedList = {};
             var list = newState.filtered_repos;
             if(newState.sorting_state === "" || newState.sorting_state === "DESC"){
                 list.sort((a, b) => parseFloat(a.stargazers_count) - parseFloat(b.stargazers_count));
@@ -33,6 +32,8 @@ const reducer = (state=initialState, action) => {
             }
             newState.filtered_repos  = list;
             break;
+        default:
+            return newState;
 
 }
     return newState;
