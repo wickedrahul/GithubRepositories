@@ -1,8 +1,8 @@
 {
-  "name": "react-with-redux",
+  "name": "react-with-redux-bringing-github-repos",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://wickedrahul.github.io/goodsReadReactApp",
+  "homepage": "https://wickedrahul.github.io/GithubRepositories/",
   "dependencies": {
     "axios": "^0.18.0",
     "gh-pages": "^2.0.1",
