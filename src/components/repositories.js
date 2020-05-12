@@ -74,7 +74,7 @@ class Repositories extends Component {
       <div className="App">
         <div>
           <input type="text" className="inputSearch" onChange={this.handleSearch}
-          placeholder="search by Repository Id, name"/>
+          placeholder="Search by Repository Id, name"/>
        </div>
        <div>
           <div className= "divStyle1" >Repositories</div>
