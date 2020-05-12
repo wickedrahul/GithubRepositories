@@ -7,13 +7,15 @@ export const getRepos = (val)=>{
 	console.log('environment', process.env.NODE_ENV)
 	if(process.env.NODE_ENV === "production"){
 		url= `${process.env.REACT_APP_AC_ORIGIN_GITHUB}/users/mojombo/repos`;
+		//We can modify this to fetch repos of any user given as input instead of 'mojombo'
 	}else{
+		//Add proxy or change URLs if required on the basis of env
 		url= `${process.env.REACT_APP_AC_ORIGIN_GITHUB}/users/mojombo/repos`;
 	}
 	return dispatch =>{
 		var myRepo = [];
 		(function myFunc(url){
-			fetch(`https://cors-anywhere.herokuapp.com/${url}`,{
+			fetch(`https://cors-anywhere.herokuapp.com/${url}`,{  //Appended a proxy url to avoid CORS issues
 				method: 'GET',
 				headers: {
 					'content-type': 'application/json'
@@ -21,7 +23,6 @@ export const getRepos = (val)=>{
 			})
 			.then(response => {
 				response.json().then(data=>{
-					console.log(response.headers.get('Link'));
 					myRepo.push(...data);
 					let nextURL = '';
 					const link = response.headers.get('Link').split(',');
@@ -32,11 +33,9 @@ export const getRepos = (val)=>{
 							break;
 						}
 					}
-					// var nextURL = response.headers.get('Link').split(',')[0].split(';')[0].replace('<', "").replace('>',"");
 					if(nextURL && nextURL.length>0){
-						myFunc(nextURL.trim());
+						myFunc(nextURL.trim()); //Call the same function recursively to fetch the next batch of data
 					}else{
-						console.log(myRepo);
 						dispatch(asyncFetchRepos(myRepo)); 
 						return
 					}
